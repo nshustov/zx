@@ -1,5 +1,5 @@
-#ifndef _MTR_TASK_MACRO_
-#define _MTR_TASK_MACRO_
+#ifndef _MTR_MACRO_
+#define _MTR_MACRO_
 
 MACRO ORR r1,r2
   LD A,r1

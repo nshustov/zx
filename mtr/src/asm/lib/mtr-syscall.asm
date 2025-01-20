@@ -48,7 +48,7 @@ __mtr_syscall:
   LD BC,__MTR_TASK_CTX_FLAGS
   ADD HL,BC
   LD A,(HL)
-  BIT __MTR_TASK_CTX_FLAGS_OWNS_SYSCALL,A
+  BIT __MTR_TASK_CTX_FLAGS_OWNS_SYSCALL_BIT,A
   JR NZ, __mtr_syscall_increment_counter; task already owns syscall
 __mtr_syscall_check_counter:
 ; check if there is a syscall by another task
@@ -112,7 +112,7 @@ __mtr_syscall_increment_counter:
   INC HL
   INC HL
   LD A,(HL)
-  RES __MTR_TASK_CTX_FLAGS_OWNS_SYSCALL,A
+  RES __MTR_TASK_CTX_FLAGS_OWNS_SYSCALL_BIT,A
   LD (HL),A
 __mtr_syscall_done:
 ; restore registers and return to the corrected address

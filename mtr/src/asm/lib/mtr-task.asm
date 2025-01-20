@@ -1,8 +1,13 @@
+#include "mtr-macro.inc"
 #include "mtr-eidi.inc"
 #include "mtr-control.inc"
+#include "mtr-task-ctx.inc"
+#include "mtr-util-regs.inc"
 #include "mtr-task.inc"
 
 SECTION code
+
+EXTERN __mtr_next_task
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -141,10 +146,10 @@ __mtr_task_init_ctx:
   ADD HL,DE
   LD (HL),A
 ; increment task counter
-  LD HL,(__mtr_task_ctr)
+  LD HL,(__mtr_tasks_ctr)
   INC HL
 ; TODO overflow assert
-  LD (__mtr_task_ctr),HL
+  LD (__mtr_tasks_ctr),HL
   POP HL
   CALL __mtr_ei_guard
   XOR A
@@ -167,7 +172,7 @@ __mtr_task_start:
   LD H,(IX+1) ; task SP in HL
   LD E,(IX+2)
   LD D,(IX+3) ; task entry point is in DE
-... ?????
+  RST 0 ; TODO: incomplete
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -211,10 +216,10 @@ __mtr_task_delete:
   INC HL
   LD (HL),A
 ; decrement task counter
-  LD HL,(__mtr_task_ctr)
+  LD HL,(__mtr_tasks_ctr)
   DEC HL
 ; TODO overflow assert
-  LD (__mtr_task_ctr),HL
+  LD (__mtr_tasks_ctr),HL
   JR Z,__mtr_task_deleted_last_task
   LD HL,(__mtr_active_tasks_ctr)
   DEC HL

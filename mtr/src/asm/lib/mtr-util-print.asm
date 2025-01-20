@@ -1,4 +1,4 @@
-#include "mtr-utils-print.inc"
+#include "mtr-util-print.inc"
 
 ; aux: prints low 4 bits of A as hex digit
 __mtr_print_hex_low:

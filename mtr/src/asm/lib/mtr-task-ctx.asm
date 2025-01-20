@@ -1,4 +1,6 @@
-__mtr_task_ctr:
+#include "mtr-task-ctx.inc"
+
+__mtr_tasks_ctr:
   defw 0
 
 __mtr_active_tasks_ctr:

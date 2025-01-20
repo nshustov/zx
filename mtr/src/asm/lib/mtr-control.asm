@@ -45,7 +45,7 @@ __mtr_init_clear_ctx_byte:
   PUSH HL
   SBC HL,DE
   POP HL
-  JR NZ,__mtr_start_clear_ctx_byte
+  JR NZ,__mtr_init_clear_ctx_byte
 ; initialize tasks counter
   LD HL,1
   LD (__mtr_tasks_ctr),HL

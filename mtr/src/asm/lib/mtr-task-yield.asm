@@ -1,5 +1,8 @@
 #include "mtr-macro.inc"
+#include "mtr-eidi.inc"
+#include "mtr-util-regs.inc"
 #include "mtr-task.inc"
+#include "mtr-task-ctx.inc"
 #include "mtr-task-yield.inc"
 
 SECTION data
@@ -11,6 +14,8 @@ __mtr_task_switched:
 
 
 SECTION code
+
+PUBLIC __mtr_next_task
 
 ; MTR task switched function
 ; NOOP for now
@@ -71,7 +76,7 @@ __mtr_task_yield_has_more_tasks:
 __mtr_next_task: ; this is an entry point invoked from __mtr_task_end
 ; HL has address of the context of the current task
 ; find next task
-  LD BC,(__mtr_tasks_data_end) ; prep for checking if we reached the end of slots
+  LD BC,(__mtr_task_ctx_end) ; prep for checking if we reached the end of slots
 ; next task context
 __mtr_task_yield_next_task_ctx:
   LD DE,__MTR_TASK_CTX_LEN
@@ -82,7 +87,7 @@ __mtr_task_yield_next_task_ctx:
   POP HL
   JR NZ, __mtr_task_yield_check_sp ; not at the end of slots
 ; at the end of slots, continue from the first slot
-  LD HL,(__mtr_tasks_data_start)
+  LD HL,(__mtr_task_ctx_start)
 __mtr_task_yield_check_sp:
 ; check if slot's SP is set
   PUSH HL

@@ -1,0 +1,37 @@
+ifndef -ASM-INCLUDE-
+-ASM-INCLUDE- := 1
+
+include $(root)/config/config.include
+include $(root)/build/common.include
+
+ifneq ($(VERBOSE),)
+export Z80ASM:=-v
+endif
+
+ASM:=z88dk.z88dk-z80asm
+INC-SUFIX:=.inc
+ASM-SUFFIX:=.asm
+OBJ-SUFFIX:=.o
+SYM-SUFFIX:=.sym
+MAP-SUFFIX:=.map
+TAP-SUFFIX:=.tap
+DEF-SUFFIX:=.def
+LST-SUFFIX:=.lis
+LIB-SUFFIX:=.lib
+
+$(OUTPUT-DIR)/%$(OBJ-SUFFIX) : %$(ASM-SUFFIX)
+	$(ASM) -I$(SHARED-INCLUDE-DIR) "$<" -O$(OUTPUT-DIR)
+
+ifneq ($(shared-includes),)
+
+$(SHARED-INCLUDE-DIR)/%$(INC-SUFFIX) : %$(INC-SUFFIX)
+	cp -f "$<" "$@"
+
+shared-include-files = $(addprefix $(SHARED-INCLUDE-DIR)/,$(shared-includes))
+
+$(shared-include-files) : | $(SHARED-INCLUDE-DIR)
+build: $(shared-include-files)
+
+endif
+
+endif

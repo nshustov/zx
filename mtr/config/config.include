@@ -1,0 +1,12 @@
+ifndef -CONFIG-INCLUDE-
+-CONFIG-INCLUDE- := 1
+
+OUTPUT-DIR := build.tmp
+SHARED-LIB-DIR := $(root)/lib
+SHARED-INCLUDE-DIR := $(root)/include
+
+VERBOSE :=
+
+export ZCCCFG:=/snap/z88dk/current/share/z88dk/lib/config
+
+endif

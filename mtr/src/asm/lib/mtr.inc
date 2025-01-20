@@ -1,0 +1,24 @@
+#ifndef _MTR_INC_
+#define _MTR_INC_
+
+#ifndef MTR_MAX_TASKS
+#define MTR_MAX_TASKS 128
+#endif
+
+#ifndef MTR_INVALID_TASK_ID
+#define MTR_INVALID_TASK_ID 0
+#endif
+
+#ifndef MTR_SEMAPHORE_COUNTER_SIZE
+#define MTR_SEMAPHORE_COUNTER_SIZE 2
+#endif
+
+#ifndef MTR_TASK_SWITCH_TICKS_COUNT
+#define MTR_TASK_SWITCH_TICKS_COUNT 1
+#endif
+
+#ifndef MTR_TIME_TICKS_COUNT
+#define MTR_TIME_TICKS_COUNT 1
+#endif
+
+#endif

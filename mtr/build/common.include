@@ -1,0 +1,27 @@
+ifndef -COMMON-INCLUDE-
+-COMMON-INCLUDE- := 1
+
+include $(root)/config/config.include
+
+$(OUTPUT-DIR):
+	mkdir -p "$@"
+
+$(SHARED-LIB-DIR):
+	mkdir -p "$@"
+
+$(SHARED-INCLUDE-DIR):
+	mkdir -p "$@"
+
+.DEFAULT_GOAL := build
+
+build:
+
+install: build
+
+clean:
+	rm -rf $(OUTPUT-DIR)
+
+echo-var:
+	@echo $(VAR)=\"$($(VAR))\"
+
+endif

@@ -1,0 +1,38 @@
+include $(root)/build/common.include
+include $(root)/build/asm.include
+
+LIB-MODULE-SUFFIX:=.module
+
+lib-filenames = $(addsuffix $(LIB-SUFFIX),$(target-libs))
+built-libs = $(addprefix $(OUTPUT-DIR)/,$(lib-filenames))
+
+lib-module-files = $(addsuffix $(LIB-MODULE-SUFFIX),$(lib-filenames))
+lib-modules = $(addprefix @,$(lib-module-files))
+
+lib-asm-filenames = $(strip $(shell sort $(lib-module-files) | uniq))
+lib-asm-objects += $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(lib-asm-filenames)))
+
+$(OUTPUT-DIR)/%$(LIB-SUFFIX) : %$(LIB-SUFFIX)$(LIB-MODULE-SUFFIX)
+	$(ASM) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(shell cat "$<"))) -x$@
+
+$(built-libs): $(lib-asm-objects) $(lib-module-files) | $(OUTPUT-DIR)
+
+build: $(built-libs)
+
+
+ifneq ($(shared-libs),)
+
+$(SHARED-LIB-DIR)/%$(LIB-SUFFIX) : $(OUTPUT-DIR)/%$(LIB-SUFFIX)
+	cp -f "$<" "$@"
+
+shared-lib-files = $(addsuffix $(LIB-SUFFIX),$(addprefix $(SHARED-LIB-DIR)/,$(shared-libs)))
+$(shared-lib-files): | $(SHARED-LIB-DIR)
+
+build: $(shared-lib-files)
+
+endif
+
+
+include $(root)/build/common.include
+
+	

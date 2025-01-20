@@ -1,0 +1,23 @@
+include $(root)/build/common.include
+include $(root)/build/asm.include
+
+BIN-SUFFIX:=.bin
+BIN-MODULE-SUFFIX:=.module
+
+bin-filenames = $(addsuffix $(BIN-SUFFIX),$(target-bins))
+tap-files = $(foreach filename,$(target-bins), $(OUTPUT-DIR)/$(filename)$(TAP-SUFFIX))
+bin-files = $(addprefix $(OUTPUT-DIR)/,$(bin-filenames))
+bin-module-files = $(addsuffix $(BIN-MODULE-SUFFIX),$(bin-filenames))
+bin-modules = $(addprefix @,$(bin-module-files))
+bin-asm-filenames = $(strip $(shell sort $(bin-module-files) | uniq))
+bin-asm-objects = $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(bin-asm-filenames)))
+
+lib-files = $(addprefix $(SHARED-LIB-DIR)/,$(addsuffix $(LIB-SUFFIX),$(libs)))
+lib-instructions = $(addprefix -l,$(libs))
+
+$(OUTPUT-DIR)/%$(BIN-SUFFIX) : %$(BIN-SUFFIX)$(BIN-MODULE-SUFFIX)
+	$(ASM) -L$(SHARED-LIB-DIR) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b -d +zx "@$<" -O$(OUTPUT-DIR) -o$@ $(lib-instructions)
+
+$(bin-files): $(bin-module-files) $(bin-asm-objects) $(lib-files)
+
+build: $(bin-files)

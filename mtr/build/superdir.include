@@ -1,0 +1,8 @@
+install: $(build-dirs)
+build: $(build-dirs)
+clean: $(build-dirs)
+
+$(build-dirs):
+	$(MAKE) -C $@ $(MAKECMDGOALS) $(MAKEFLAGS) $(MAKEOVERRIDES)
+
+.PHONY: $(build-dirs)

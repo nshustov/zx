@@ -1,3 +1,4 @@
+#include "mtr-util-regs.inc"
 #include "mtr-util-print.inc"
 
 ; aux: prints low 4 bits of A as hex digit
@@ -63,8 +64,9 @@ __mtr_print_str:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 __mtr_print_chr:
   CALL __mtr_save_all_regs
-  CALL __mtr_syscall
-  defw 0x10 ; RST 0x10
+;  CALL __mtr_syscall
+;  defw 0x10 ; RST 0x10
+  RST 0x10
   CALL __mtr_restore_all_regs
   RET
 

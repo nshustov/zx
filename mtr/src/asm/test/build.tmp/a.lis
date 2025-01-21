@@ -1,0 +1,91 @@
+a.asm:
+     1                          #include "mtr-control.inc"
+../../../include/mtr-control.inc:
+     1                          #ifndef _MTR_CONTROL_INC_
+     2                          #define _MTR_CONTROL_INC_
+     3                          
+     4                          GLOBAL __mtr_flags
+     5                          #define mtr_flags __mtr_flags
+     6                          
+     7                          GLOBAL __mtr_init
+     8                          #define mtr_init __mtr_init
+     9                          
+    10                          GLOBAL __mtr_shutdown
+    11                          #define mtr_shutdown __mtr_shutdown
+    12                          
+    13                          #define __MTR_FLAGS_IS_PREEMPTIVE_BIT 0
+    14                          
+    15                          #endif
+    16                          
+a.asm:
+     2                          #include "mtr-util-print.inc"
+../../../include/mtr-util-print.inc:
+     1                          #ifndef _MTR_UTILS_PRINT_INC_
+     2                          #define _MTR_UTILS_PRINT_INC_
+     3                          
+     4                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     5                          ; Prints two-digit hex number
+     6                          ; [in] A : number to print
+     7                          ; All registers but AF are preserved.
+     8                          ; Returns no errors or checks.
+     9                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    10                          GLOBAL __mtr_print_hex
+    11                          #define mtr_print_hex __mtr_print_hex
+    12                          
+    13                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    14                          ; Prints zero terminated string
+    15                          ; [in] HL string start
+    16                          ; [out] HL points to the next byte after string zero byte
+    17                          ; All other registers are preserved.
+    18                          ; Returns no errors or checks.
+    19                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    20                          GLOBAL __mtr_print_string
+    21                          #define mtr_print_string __mtr_print_string
+    22                          
+    23                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    24                          ; Prints zero terminated string from location immediately
+    25                          ; following CALL instruction that invoked this function.
+    26                          ; The execution continues from the  address following the
+    27                          ; zero byte of the string.
+    28                          ; All registers but HL are preserved.
+    29                          ; Returns no errors or checks.
+    30                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    31                          GLOBAL __mtr_print_str
+    32                          #define mtr_print_str __mtr_print_str
+    33                          
+    34                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    35                          ; Prints character.
+    36                          ; [in] A : character to print
+    37                          ; All registers are preserved.
+    38                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    39                          GLOBAL __mtr_print_chr
+    40                          #define mtr_print_chr __mtr_print_chr
+    41                          
+    42                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    43                          ; Skips zero terminated string
+    44                          ; [in] HL string start
+    45                          ; [out] HL points to the next byte after string zero byte
+    46                          ; All other registers are preserved.
+    47                          ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    48                          GLOBAL __mtr_skip_string
+    49                          #define mtr_skip_string __mtr_skip_string
+    50                          
+    51                          #endif
+    52                          
+a.asm:
+     3                          
+     4                          SECTION code
+     5                          
+     6                          ORG 0x8000
+     7                          
+     8  0000  cd0000            CALL mtr_init
+     9  0003  f5                PUSH AF
+    10  0004  e5                PUSH HL
+    11  0005  cd0000            CALL  mtr_print_str
+    12  0008  6d7920737472696e  defb "my string",13,0
+              670d00            
+    13  0013  e1                POP HL
+    14  0014  f1                POP AF
+    15  0015  c9                RET
+    16                          
+    17                          

@@ -8,7 +8,8 @@ ifneq ($(VERBOSE),)
 export Z80ASM:=-v
 endif
 
-ASM:=z88dk.z88dk-z80asm
+Z88DK-ASM:=z88dk.z88dk-z80asm
+Z88DK-APPMAKE:=z88dk.z88dk-appmake
 INC-SUFIX:=.inc
 ASM-SUFFIX:=.asm
 OBJ-SUFFIX:=.o
@@ -20,7 +21,7 @@ LST-SUFFIX:=.lis
 LIB-SUFFIX:=.lib
 
 $(OUTPUT-DIR)/%$(OBJ-SUFFIX) : %$(ASM-SUFFIX)
-	$(ASM) -I$(SHARED-INCLUDE-DIR) "$<" -O$(OUTPUT-DIR)
+	$(Z88DK-ASM) -I$(SHARED-INCLUDE-DIR) "$<" -O$(OUTPUT-DIR)
 
 ifneq ($(shared-includes),)
 

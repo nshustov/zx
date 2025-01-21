@@ -1,0 +1,55 @@
+a-task-ctx.asm:
+     1                          #include "mtr-task-ctx.inc"
+../../../include/mtr-task-ctx.inc:
+     1                          #ifndef _MTR_TASK_CTX_
+     2                          #define _MTR_TASK_CTX_
+     3                          
+     4                          GLOBAL __mtr_tasks_ctr
+     5                          #define mtr_task_ctr __mtr_tasks_ctr
+     6                          
+     7                          GLOBAL __mtr_active_tasks_ctr
+     8                          #define mtr_active_tasks_ctr __mtr_active_tasks_ctr
+     9                          
+    10                          GLOBAL __mtr_current_task_ctx
+    11                          #define mtr_current_task_ctx __mtr_current_task_ctx
+    12                          
+    13                          GLOBAL __mtr_task_ctx_start
+    14                          #define mtr_task_ctx_start __mtr_task_ctx_start
+    15                          
+    16                          GLOBAL __mtr_task_ctx_end
+    17                          #define mtr_task_ctx_end __mtr_task_ctx_end
+    18                          
+    19                          
+    20                          #define __MTR_TASK_CTX_SP 0
+    21                          #define __MTR_TASK_CTX_FLAGS 2
+    22                          #define __MTR_TASK_CTX_EIDI_CTR 3
+    23                          #define __MTR_TASK_CTX_LEN 5
+    24                          
+    25                          #define __MTR_TASK_CTX_FLAGS_ACTIVE 1
+    26                          #define __MTR_TASK_CTX_FLAGS_ACTIVE_BIT 0
+    27                          
+    28                          #define __MTR_TASK_CTX_FLAGS_OWNS_SYSCALL 2
+    29                          #define __MTR_TASK_CTX_FLAGS_OWNS_SYSCALL_BIT 1
+    30                          
+    31                          #endif
+    32                          
+a-task-ctx.asm:
+     2                          
+     3                          SECTION data
+     4                          ORG 0x9000
+     5                          
+     6                          __mtr_tasks_ctr:
+     7  0000  0000                defw 0
+     8                          
+     9                          __mtr_active_tasks_ctr:
+    10  0002  0000                defw 0
+    11                          
+    12                          __mtr_current_task_ctx:
+    13  0004  0000                defw 0
+    14                          
+    15                          __mtr_task_ctx_start:
+    16  0006  0090                defw 0x9000
+    17                          
+    18                          __mtr_task_ctx_end:
+    19  0008  ffff                defw 0xFFFF
+    20                          

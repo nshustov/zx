@@ -13,7 +13,7 @@ lib-asm-filenames = $(strip $(shell sort $(lib-module-files) | uniq))
 lib-asm-objects += $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(lib-asm-filenames)))
 
 $(OUTPUT-DIR)/%$(LIB-SUFFIX) : %$(LIB-SUFFIX)$(LIB-MODULE-SUFFIX)
-	$(ASM) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(shell cat "$<"))) -x$@
+	$(Z88DK-ASM) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(shell cat "$<"))) -x$@
 
 $(built-libs): $(lib-asm-objects) $(lib-module-files) | $(OUTPUT-DIR)
 

@@ -16,8 +16,12 @@ lib-files = $(addprefix $(SHARED-LIB-DIR)/,$(addsuffix $(LIB-SUFFIX),$(libs)))
 lib-instructions = $(addprefix -l,$(libs))
 
 $(OUTPUT-DIR)/%$(BIN-SUFFIX) : %$(BIN-SUFFIX)$(BIN-MODULE-SUFFIX)
-	$(ASM) -L$(SHARED-LIB-DIR) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b -d +zx "@$<" -O$(OUTPUT-DIR) -o$@ $(lib-instructions)
+	$(Z88DK-ASM) -L$(SHARED-LIB-DIR) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b -d "@$<" -O$(OUTPUT-DIR) -o$@ $(lib-instructions)
+
+$(OUTPUT-DIR)/%$(TAP-SUFFIX) : $(OUTPUT-DIR)/%$(BIN-SUFFIX)
+	$(Z88DK-APPMAKE) +zx -b "$<" --org 32768 --noloader -o "$@" $($(basename $(notdir $<)).appopts)
 
 $(bin-files): $(bin-module-files) $(bin-asm-objects) $(lib-files)
+$(tap-files): $(bin-files)
 
-build: $(bin-files)
+build: $(tap-files)

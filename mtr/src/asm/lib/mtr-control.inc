@@ -4,6 +4,9 @@
 GLOBAL __mtr_flags
 #define mtr_flags __mtr_flags
 
+GLOBAL __mtr_init
+#define mtr_init __mtr_init
+
 GLOBAL __mtr_shutdown
 #define mtr_shutdown __mtr_shutdown
 

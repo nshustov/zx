@@ -1,0 +1,95 @@
+z88dk.z88dk-appmake +z80 -b "@build.tmp/a.bin" -obuild.tmp/a.tap -org 32768 --noloader -blockname ggaammee
+Unknown machine target "z80"
+
+appmake [+target] [options]
+
+The z88dk application generator
+
+This program is used to produce files which are suitable for use in
+emulators or on the real hardware. Supported targets are:
+
++abc80        (abccas  ) - (C) 2000 Stefano Bodrato, (C) 2008 Robert Juhasz 
++ace          (acetap  ) - (C) 2001 Stefano Bodrato
++adam         (bin2dpp ) - (C) 2021 z88dk
++aquarius     (bin2caq ) - (C) 2001 Stefano Bodrato
++c128         (bin3000 ) - (C) 2001 Stefano Bodrato
++c7420        (bin7420 ) - (C) 2015 Stefano Bodrato
++cpc          (bin2cpc ) - (C) 2003 Dominic Morris, (C) 1997 Pierre Thevenet
++cpmdisk      (cpmdisk ) - (C) 2018 dom
++dai          (bin2dai ) - (C) 2020 z88dk
++enterprise   (bin2ep  ) - (C) 2011 Stefano Bodrato
++extract      (extract ) - (C) 2015 Alvin Albrecht
++fat          (bin2fat ) - (C) 2019 dom + ChaN
++fp1100       (fp1kd88 ) - (C) 2018 Dominic Morris
++gal          (bin2gtp ) - (C) 2007,2008 Tomaz Solc & Stefano Bodrato
++gb           (makebin ) - (C) 2000 - 2019 gbdk + z88dk
++glue         (gluebin ) - (C) 2017 Alvin Albrecht
++hex          (bin2hex ) - (C) 2001 Dominic Morris & Jeff Brown
++homelab      (bin2htp ) - (C) 2020 z88dk
++inject       (inject  ) - (C) 2014 Dominic Morris
++kc           (kcc     ) - (C) 2016 Stefano Bodrato
++laser500     (laser2cas) - (C) 2010-2018 Stefano Bodrato
++lviv         (bin2lvt ) - (C) 2020 z88dk
++lynx         (lynxtap ) - (C) 2014 Stefano Bodrato
++m5           (bin2m5  ) - (C) 2010 Stefano Bodrato
++mamepp       (bin2pp  ) - (C) 2020 z88dk
++mameql       (bin2mql ) - (C) 2018 dom
++mc           (mc1000  ) - (C) 2013 Stefano Bodrato
++mgt          (bin2mgt ) - (C) 2021 z88dk
++msx          (bin2msx ) - (C) 2001 Stefano Bodrato
++msxrom       (bin2msr ) - (C) 2020 z88dk
++mtx          (bin2mtx ) - (C) 2011 Stefano Bodrato
++multi8       (bin2m8  ) - (C) 2018 Dominic Morris
++mz           (bin2m12 ) - (C) 2000,2003 S. Bodrato, J.F.J. Laros, M. Nemecek
++mz2500       (bin2mz  ) - (C) 2018 S. Bodrato
++nas          (bin2nas ) - (C) 2003 Stefano Bodrato
++nec          (hex2cas ) - (C) 2003,2007 Takahide Matsutsuka
++newbrain     (bin2nwbn) - (C) 2007 Stefano Bodrato
++newext       (newext  ) - (C) 2014 Stefano Bodrato
++noop         (bin2bin ) - (C) 2020 z88dk
++ondra        (bin2otp ) - (C) 2020 z88dk
++p2000        (mc2cas  ) - (C) 2014 Stefano Bodrato
++pasopia7     (bin2pas ) - (C) 2019 z88dk
++pc88         (bin2t88 ) - (C) 2018 Stefano Bodrato
++pc88disc     (bin2d88 ) - (C) 2021 z88dk
++pmd85        (bin2ptp ) - (C) 2020 z88dk
++px           (px2rom  ) - (C) 2015 Stefano Bodrato
++residos      (bin2pkg ) - (C) 2014 Dominic Morris
++rex          (mkaddin ) - (C) 2001 Dominic Morris
++rkx          (bin2rk  ) - (C) 2020 z88dk
++rom          (rompad  ) - (C) 2014,2017 Stefano Bodrato & Alvin Albrecht
++smc777       (bin2smc ) - (C) 2021 z88dk
++sol20        (bin2ent ) - (C) 2021 z88dk
++sos          (sentinel) - (C) 2013 Stefano Bodrato
++spc1000      (bin2spc ) - (C) 2018 Dominic Morris
++srr          (dgos    ) - (C) 2011, 2017 Stefano Bodrato
++ti83papp     (bin2app ) - (C) 2023 z88dk, HeronErin, Spasm-ng
++ti82         (bin2var ) - (C) 2000,2003 David Phillips et al
++ti83         (bin2var ) - (C) 2000,2003 David Phillips et al
++ti8x         (bin2var ) - (C) 2000,2003 David Phillips et al
++ti85         (bin2var ) - (C) 2000,2003 David Phillips et al
++ti86         (bin2var ) - (C) 2000,2003 David Phillips et al
++ti86s        (bin2var ) - (C) 2000,2003 David Phillips et al
++sms          (bin2sms ) - (C) 2007 Dominic Morris
++sc3000       (bin2sc  ) - (C) 2010 Stefano Bodrato
++svi          (bin2svi ) - (C) 2001 Stefano Bodrato
++trs80        (bin2cmd ) - (C) 2008 Stefano Bodrato
++tvc          (bin2cas ) - (C) 2019 Sandor Vass
++primo        (bin2pri ) - (C) 2022 Sandor Vass
++vector06c    (bin2fdd ) - (C) 2020 z88dk
++vg5k         (vg5k2k7 ) - (C) 2014 Stefano Bodrato
++vz           (vz2cas  ) - (C) 2010 Stefano Bodrato
++x07          (x07cas  ) - (C) 2011 Stefano Bodrato
++x1           (x1-2d   ) - (C) 2018 Stefano Bodrato
++z1013        (z1013   ) - (C) 2016 Stefano Bodrato
++z88          (appz88  ) - (C) 2000,2003 Dominic Morris & Dennis Groning
++z88elf       (appelf  ) - (C) 2021 z88dk
++z88shell     (shellmak) - (C) 2002,2003 Dominic Morris
++z9001        (kctape  ) - (C) 2016 Stefano Bodrato
++zx           (bin2tap ) - (C) 2000,2003,2017 Morris, Bodrato, Albrecht
++zx81         (bin2p   ) - (C) 2000 Stefano Bodrato
++zxn          (zxnext  ) - (C) 2000,2003,2017 Morris, Bodrato, Albrecht
++zxvgs        (appzxvgs) - (C) 2003 Yarek
+
+For more usage information use +[target] with no options
+make: *** [../../../build/asm-bin.include:24: build.tmp/a.tap] Error 1

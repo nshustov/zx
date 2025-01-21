@@ -1,0 +1,5 @@
+__mtr_tasks_ctr                 = $0000 ; addr, public, , , data, a-task-ctx.asm:6
+__mtr_active_tasks_ctr          = $0002 ; addr, public, , , data, a-task-ctx.asm:9
+__mtr_current_task_ctx          = $0004 ; addr, public, , , data, a-task-ctx.asm:12
+__mtr_task_ctx_start            = $0006 ; addr, public, , , data, a-task-ctx.asm:15
+__mtr_task_ctx_end              = $0008 ; addr, public, , , data, a-task-ctx.asm:18

@@ -1,37 +1,41 @@
 ifndef -ASM-INCLUDE-
 -ASM-INCLUDE- := 1
 
-include $(root)/config/config.include
 include $(root)/build/common.include
 
-ifneq ($(VERBOSE),)
-export Z80ASM:=-v
+#########################################
+# .asm compilation rules
+#########################################
+
+build-asm-objects += $(call output-file,$(asm-stems),$(OBJ-SUFFIX))
+
+ifneq (,$(asm.module))
+build-asm-objects += $(call output-file,$(call module-contents,$(asm.module)),$(OBJ-SUFFIX))
 endif
 
-Z88DK-ASM:=z88dk.z88dk-z80asm
-Z88DK-APPMAKE:=z88dk.z88dk-appmake
-INC-SUFIX:=.inc
-ASM-SUFFIX:=.asm
-OBJ-SUFFIX:=.o
-SYM-SUFFIX:=.sym
-MAP-SUFFIX:=.map
-TAP-SUFFIX:=.tap
-DEF-SUFFIX:=.def
-LST-SUFFIX:=.lis
-LIB-SUFFIX:=.lib
+build: $(build-asm-objects)
 
 $(OUTPUT-DIR)/%$(OBJ-SUFFIX) : %$(ASM-SUFFIX)
-	$(Z88DK-ASM) -I$(SHARED-INCLUDE-DIR) "$<" -O$(OUTPUT-DIR)
+	$(Z88DK-ASM) -I$(SHARED-INCLUDE-DIR) -s -l -m -g "$<" -O$(OUTPUT-DIR)
+
+#########################################
+# .shared includes publishing
+#########################################
 
 ifneq ($(shared-includes),)
 
 $(SHARED-INCLUDE-DIR)/%$(INC-SUFFIX) : %$(INC-SUFFIX)
 	cp -f "$<" "$@"
 
-shared-include-files = $(addprefix $(SHARED-INCLUDE-DIR)/,$(shared-includes))
+build-shared-includes += $(addprefix $(SHARED-INCLUDE-DIR)/,$(shared-includes))
 
-$(shared-include-files) : | $(SHARED-INCLUDE-DIR)
-build: $(shared-include-files)
+$(build-shared-includes) : | $(SHARED-INCLUDE-DIR)
+
+ifneq ($(build-asm-stems),)
+$(build-asm-stems) : $(build-shared-includes)
+endif
+
+build: $(build-shared-includes)
 
 endif
 

@@ -1,38 +1,27 @@
 include $(root)/build/common.include
-include $(root)/build/asm.include
 
-LIB-MODULE-SUFFIX:=.module
+build-asm-libs = $(call output-file,$(asm-libs),$(LIB-SUFFIX))
 
-lib-filenames = $(addsuffix $(LIB-SUFFIX),$(target-libs))
-built-libs = $(addprefix $(OUTPUT-DIR)/,$(lib-filenames))
+asm-stems += $(call assemble-stems,$(asm-libs),$(LIB-SUFFIX))
 
-lib-module-files = $(addsuffix $(LIB-MODULE-SUFFIX),$(lib-filenames))
-lib-modules = $(addprefix @,$(lib-module-files))
+$(OUTPUT-DIR)/%$(LIB-SUFFIX):
+	$(Z88DK-ASM) -l -I$(SHARED-INCLUDE-DIR) $(call output-file,$(call assemble-stems,$(basename $(notdir $@)),$(LIB-SUFFIX)),$(OBJ-SUFFIX)) -x$@
 
-lib-asm-filenames = $(strip $(shell sort $(lib-module-files) | uniq))
-lib-asm-objects += $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(lib-asm-filenames)))
+ifneq (,$(shared-asm-libs))
+publish-asm-libs = $(foreach lib,$(shared-asm-libs),$(SHARED-LIB-DIR)/$(lib)$(LIB-SUFFIX))
 
-$(OUTPUT-DIR)/%$(LIB-SUFFIX) : %$(LIB-SUFFIX)$(LIB-MODULE-SUFFIX)
-	$(Z88DK-ASM) -I$(SHARED-INCLUDE-DIR) -s -l -m -g -b $(addprefix $(OUTPUT-DIR)/,$(addsuffix $(OBJ-SUFFIX),$(shell cat "$<"))) -x$@
+$(publish-asm-libs): $(build-asm-libs)
+build: $(publish-asm-libs)
 
-$(built-libs): $(lib-asm-objects) $(lib-module-files) | $(OUTPUT-DIR)
-
-build: $(built-libs)
-
-
-ifneq ($(shared-libs),)
-
-$(SHARED-LIB-DIR)/%$(LIB-SUFFIX) : $(OUTPUT-DIR)/%$(LIB-SUFFIX)
-	cp -f "$<" "$@"
-
-shared-lib-files = $(addsuffix $(LIB-SUFFIX),$(addprefix $(SHARED-LIB-DIR)/,$(shared-libs)))
-$(shared-lib-files): | $(SHARED-LIB-DIR)
-
-build: $(shared-lib-files)
+$(SHARED-LIB-DIR)/%$(LIB-SUFFIX): $(OUTPUT-DIR)/%$(LIB-SUFFIX)
+	cp -f $< $@
 
 endif
 
+build: $(build-asm-libs)
 
-include $(root)/build/common.include
+include $(root)/build/asm.include
 
-	
+$(build-asm-libs) : $(build-asm-objects)
+
+

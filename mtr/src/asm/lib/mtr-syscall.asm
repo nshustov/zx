@@ -2,12 +2,12 @@
 #include "mtr-eidi.inc"
 #include "mtr-syscall.inc"
 
-SECTION data
+SECTION mtr_data
 ; syscall counter
 __mtr_syscall_counter:
 defw 0
 
-SECTION code
+SECTION mtr_code
 
 ; aux: invokes the function which address on the stack preceeding
 ; the return address of the caller.

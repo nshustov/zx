@@ -1,0 +1,38 @@
+include $(root)/build/common.include
+
+build-asm-taps = $(call output-file,$(asm-taps),$(TAP-SUFFIX))
+a1 += $(call assemble-list,$(asm-taps),$(TAP-SUFFIX),.bins)
+asm-taps-bins += $(call output-file,$(call assemble-list,$(asm-taps),$(TAP-SUFFIX),.bins),$(BIN-SUFFIX))
+
+$(build-asm-taps): $(asm-taps-bins)
+build: $(build-asm-taps)
+
+define make-tap-opts
+$(if $($(1).tap.org), --org $($(1).tap.org)) \
+$(if $($(1).tap.cleanaddr), --cleanaddr $($(1).tap.cleanaddr)) \
+$(if $($(1).tap.usraddr), --usraddr $($(1).tap.usraddr)) \
+$(if $($(1).tap.blockname), --blockname $($(1).tap.blockname)) \
+$(if $($(1).tap.loader),, --noloader)
+endef
+
+# $(1) - loader file name
+# $(2) - CLEAR address
+# $(3) - binary file name
+# $(4) - binary load address
+# $(5) - binary launch address
+define create-asm-loader
+$(file >$(1),10 CLEAR $(2))
+$(file >>$(1),20 LOAD "$(3)" CODE $(4))
+$(file >>$(1),30 RANDOMIZE USR $(5))
+endef
+
+$(OUTPUT-DIR)/%$(TAP-SUFFIX) :
+	$(Z88DK-APPMAKE) +zx \
+	$(addprefix -b ,$(call output-file,$(call assemble-list,$(basename $(notdir "$@")),$(TAP-SUFFIX),.bins),$(BIN-SUFFIX))) \
+	$($(basename $(notdir "$@")).tap.opts) \
+	$(call make-tap-opts,$(basename $(notdir "$@"))) \
+	-o "$@"
+
+
+# $(Z88DK-APPMAKE) +zx -b "$<" --org 32768 --noloader -o "$@" $($(basename $(notdir $<)).appopts)
+

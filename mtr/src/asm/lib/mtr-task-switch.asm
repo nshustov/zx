@@ -1,11 +1,11 @@
 #include "mtr-task.inc"
 #include "mtr-task-switch.inc"
 
-SECTION data
+SECTION mtr_data
 __mtr_task_switched:
   defw 0 
 
-SECTION code
+SECTION mtr_code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Sets address of routine that will be called after task is switched.
 ; The function are executed on the task stack and within its context.

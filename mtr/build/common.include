@@ -1,7 +1,21 @@
 ifndef -COMMON-INCLUDE-
 -COMMON-INCLUDE- := 1
 
+.SUFFIXES :
+
 include $(root)/config/config.include
+
+INC-SUFIX:=.inc
+ASM-SUFFIX:=.asm
+OBJ-SUFFIX:=.o
+SYM-SUFFIX:=.sym
+MAP-SUFFIX:=.map
+TAP-SUFFIX:=.tap
+DEF-SUFFIX:=.def
+LST-SUFFIX:=.lis
+LIB-SUFFIX:=.lib
+BIN-SUFFIX:=.bin
+MODULE-SUFFIX:=.module
 
 $(OUTPUT-DIR):
 	mkdir -p "$@"
@@ -14,14 +28,20 @@ $(SHARED-INCLUDE-DIR):
 
 .DEFAULT_GOAL := build
 
-build:
-
+pre-build:
+build: pre-build | $(OUTPUT-DIR)
 install: build
 
 clean:
 	rm -rf $(OUTPUT-DIR)
 
 echo-var:
-	@echo $(VAR)=\"$($(VAR))\"
+	@echo $(echo-var-prefix)$($(var))
+
+ifneq ($(VERBOSE),)
+export Z80ASM := -v
+endif
+
+include $(root)/build/utils.include
 
 endif

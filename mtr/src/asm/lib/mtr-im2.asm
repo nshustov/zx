@@ -1,16 +1,14 @@
 #include "mtr-im2.inc"
 
-SECTION data
+SECTION mtr_data
 __mtr_flags:
 ; bit 0: 1 if we are in IM2 handler
   defb 0
 
-SECTION data
-
 __mtr_im2_switch:
   defw __mtr_default_im2_switch
 
-SECTION code
+SECTION mtr_code
 __mtr_default_im2_switch:
   RET
 
@@ -39,11 +37,11 @@ __mtr_get_im2_switch:
   XOR A
   RET
 
-SECTION data
+SECTION mtr_data
 __mtr_task_switch:
   defw __mtr_im2_task_switch
 
-SECTION code
+SECTION mtr_code
 __mtr_im2_task_switch:
   PUSH AF
 ; reset im2 handler flag

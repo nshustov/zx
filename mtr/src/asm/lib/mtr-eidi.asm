@@ -3,7 +3,7 @@
 #include "mtr-eidi.inc"
 #include "mtr-control.inc"
 
-SECTION code
+SECTION mtr_code
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 __mtr_exit_if_cooperative:

@@ -1,5 +1,7 @@
 #include "mtr-util-regs.inc"
 
+SECTION mtr_code
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Saves all registers on the stack
 ;

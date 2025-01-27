@@ -1,6 +1,6 @@
 #include "mtr-utils.inc"
 
-SECTION data
+SECTION mtr_data
 
 LOCAL ix_reg_str, iy_reg_str, hl_reg_str, de_reg_str, bc_reg_str, a_reg_str, f_reg_str
 ix_reg_str: defb "IX",0
@@ -13,7 +13,7 @@ f_reg_str:  defb "\n F",0
 ip_reg_str: defb "\n IP",0
 sp_reg_str: defb "\n IP",0
 
-SECTION code
+SECTION mtr_code
 
 ; aux: prints named 1-byte data as hex
 ; [in] HL value address

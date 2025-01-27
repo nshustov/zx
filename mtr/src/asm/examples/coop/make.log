@@ -1,0 +1,123 @@
+GNU Make 4.3
+Built for x86_64-pc-linux-gnu
+Copyright (C) 1988-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+Reading makefiles...
+Reading makefile 'Makefile'...
+Reading makefile '../../../../build/asm.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../config/config.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../build/common.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../config/config.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../build/asm-bin.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../build/common.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../build/asm.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../build/asm-tap.include' (search path) (no ~ expansion)...
+Reading makefile '../../../../build/asm.include' (search path) (no ~ expansion)...
+Updating makefiles....
+ Considering target file '../../../../build/asm.include'.
+  Looking for an implicit rule for '../../../../build/asm.include'.
+  No implicit rule found for '../../../../build/asm.include'.
+  Finished prerequisites of target file '../../../../build/asm.include'.
+ No need to remake target '../../../../build/asm.include'.
+ Considering target file '../../../../build/asm-tap.include'.
+  Looking for an implicit rule for '../../../../build/asm-tap.include'.
+  No implicit rule found for '../../../../build/asm-tap.include'.
+  Finished prerequisites of target file '../../../../build/asm-tap.include'.
+ No need to remake target '../../../../build/asm-tap.include'.
+ Pruning file '../../../../build/asm.include'.
+ Considering target file '../../../../build/common.include'.
+  Looking for an implicit rule for '../../../../build/common.include'.
+  No implicit rule found for '../../../../build/common.include'.
+  Finished prerequisites of target file '../../../../build/common.include'.
+ No need to remake target '../../../../build/common.include'.
+ Considering target file '../../../../build/asm-bin.include'.
+  Looking for an implicit rule for '../../../../build/asm-bin.include'.
+  No implicit rule found for '../../../../build/asm-bin.include'.
+  Finished prerequisites of target file '../../../../build/asm-bin.include'.
+ No need to remake target '../../../../build/asm-bin.include'.
+ Considering target file '../../../../config/config.include'.
+  Looking for an implicit rule for '../../../../config/config.include'.
+  No implicit rule found for '../../../../config/config.include'.
+  Finished prerequisites of target file '../../../../config/config.include'.
+ No need to remake target '../../../../config/config.include'.
+ Pruning file '../../../../build/common.include'.
+ Pruning file '../../../../config/config.include'.
+ Pruning file '../../../../build/asm.include'.
+ Considering target file 'Makefile'.
+  Looking for an implicit rule for 'Makefile'.
+  No implicit rule found for 'Makefile'.
+  Finished prerequisites of target file 'Makefile'.
+ No need to remake target 'Makefile'.
+Updating goal targets....
+Considering target file 'build'.
+ File 'build' does not exist.
+ Looking for an implicit rule for 'build'.
+ No implicit rule found for 'build'.
+  Considering target file 'build.tmp/print-char.bin'.
+   File 'build.tmp/print-char.bin' does not exist.
+   Looking for an implicit rule for 'build.tmp/print-char.bin'.
+   Trying pattern rule with stem 'print-char'.
+   Trying implicit prerequisite 'print-char.bin.module'.
+   Found an implicit rule for 'build.tmp/print-char.bin'.
+    Considering target file 'print-char.bin.module'.
+     Looking for an implicit rule for 'print-char.bin.module'.
+     No implicit rule found for 'print-char.bin.module'.
+     Finished prerequisites of target file 'print-char.bin.module'.
+    No need to remake target 'print-char.bin.module'.
+    Pruning file 'print-char.bin.module'.
+    Considering target file 'build.tmp/print-char.o'.
+     File 'build.tmp/print-char.o' does not exist.
+     Looking for an implicit rule for 'build.tmp/print-char.o'.
+     Trying pattern rule with stem 'print-char'.
+     Trying implicit prerequisite 'print-char.asm'.
+     Found an implicit rule for 'build.tmp/print-char.o'.
+      Considering target file 'print-char.asm'.
+       Looking for an implicit rule for 'print-char.asm'.
+       No implicit rule found for 'print-char.asm'.
+       Finished prerequisites of target file 'print-char.asm'.
+      No need to remake target 'print-char.asm'.
+     Finished prerequisites of target file 'build.tmp/print-char.o'.
+    Must remake target 'build.tmp/print-char.o'.
+z88dk.z88dk-z80asm -I../../../../include "print-char.asm" -Obuild.tmp
+Putting child 0x5db0c11d5a10 (build.tmp/print-char.o) PID 17460 on the chain.
+Live child 0x5db0c11d5a10 (build.tmp/print-char.o) PID 17460 
+Reaping winning child 0x5db0c11d5a10 PID 17460 
+Removing child 0x5db0c11d5a10 PID 17460 from chain.
+    Successfully remade target file 'build.tmp/print-char.o'.
+    Considering target file '../../../../lib/mtr.lib'.
+     Looking for an implicit rule for '../../../../lib/mtr.lib'.
+     No implicit rule found for '../../../../lib/mtr.lib'.
+     Finished prerequisites of target file '../../../../lib/mtr.lib'.
+    No need to remake target '../../../../lib/mtr.lib'.
+    Considering target file '../../../../lib/mtr-util.lib'.
+     Looking for an implicit rule for '../../../../lib/mtr-util.lib'.
+     No implicit rule found for '../../../../lib/mtr-util.lib'.
+     Finished prerequisites of target file '../../../../lib/mtr-util.lib'.
+    No need to remake target '../../../../lib/mtr-util.lib'.
+   Finished prerequisites of target file 'build.tmp/print-char.bin'.
+  Must remake target 'build.tmp/print-char.bin'.
+z88dk.z88dk-z80asm -L../../../../lib -I../../../../include -s -l -m -g -b -d "@print-char.bin.module" -Obuild.tmp -obuild.tmp/print-char.bin -lmtr -lmtr-util
+Putting child 0x5db0c11d72b0 (build.tmp/print-char.bin) PID 17495 on the chain.
+Live child 0x5db0c11d72b0 (build.tmp/print-char.bin) PID 17495 
+Reaping winning child 0x5db0c11d72b0 PID 17495 
+Removing child 0x5db0c11d72b0 PID 17495 from chain.
+  Successfully remade target file 'build.tmp/print-char.bin'.
+  Considering target file 'build.tmp/print-char-t.tap'.
+   File 'build.tmp/print-char-t.tap' does not exist.
+   Looking for an implicit rule for 'build.tmp/print-char-t.tap'.
+   Trying pattern rule with stem 'print-char-t'.
+   Found an implicit rule for 'build.tmp/print-char-t.tap'.
+    Pruning file 'build.tmp/print-char.bin'.
+   Finished prerequisites of target file 'build.tmp/print-char-t.tap'.
+  Must remake target 'build.tmp/print-char-t.tap'.
+z88dk.z88dk-appmake +zx --org 32768 -b build.tmp/print-char_data.bin -o "build.tmp/print-char-t.tap"
+Putting child 0x5db0c11d8230 (build.tmp/print-char-t.tap) PID 17524 on the chain.
+Live child 0x5db0c11d8230 (build.tmp/print-char-t.tap) PID 17524 
+Reaping winning child 0x5db0c11d8230 PID 17524 
+Removing child 0x5db0c11d8230 PID 17524 from chain.
+  Successfully remade target file 'build.tmp/print-char-t.tap'.
+ Finished prerequisites of target file 'build'.
+Must remake target 'build'.
+Successfully remade target file 'build'.

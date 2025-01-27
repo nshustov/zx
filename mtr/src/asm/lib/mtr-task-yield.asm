@@ -5,7 +5,7 @@
 #include "mtr-task-ctx.inc"
 #include "mtr-task-yield.inc"
 
-SECTION data
+SECTION mtr_data
 __mtr_task_switching:
   defw __mtr_task_switching_mtr
 
@@ -13,7 +13,7 @@ __mtr_task_switched:
   defw __mtr_task_switched_mtr
 
 
-SECTION code
+SECTION mtr_code
 
 PUBLIC __mtr_next_task
 

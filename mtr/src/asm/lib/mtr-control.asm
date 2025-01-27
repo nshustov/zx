@@ -1,7 +1,7 @@
 #include "mtr-task-ctx.inc"
 #include "mtr-control.inc"
 
-SECTION data
+SECTION mtr_data
 
 ; 0: 1 for preemptive, 0 for cooperative
 __mtr_flags:
@@ -10,7 +10,7 @@ __mtr_flags:
 __mtr_shutdown:
   defw __mtr_shutdown_mtr
 
-SECTION code
+SECTION mtr_code
 
 __mtr_shutdown_mtr:
 ;  RST 0x00 ?

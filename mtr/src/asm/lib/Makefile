@@ -1,12 +1,14 @@
 root := ../../..
 
-target-libs := \
+asm-libs := \
   mtr \
   mtr-util
 
-shared-libs := $(target-libs)
+mtr.lib.opts := --split-bin
 
-shared-includes := \
+shared-asm-libs := $(asm-libs)
+
+shared-asm-includes := \
   mtr-control.inc \
   mtr-eidi.inc \
   mtr.inc \
@@ -18,4 +20,4 @@ shared-includes := \
   mtr-util-regs.inc
 
 include $(root)/build/asm-lib.include
-
+	

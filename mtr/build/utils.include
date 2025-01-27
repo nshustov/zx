@@ -1,0 +1,22 @@
+ifndef -UTILS-INCLUDE-
+-UTILS-INCLUDE- := 1
+
+# From names in argument (1), produces output file paths
+# located in $(OUTPUT-DIR) with optional suffix (2).
+output-file=$(foreach file,$(1),$(OUTPUT-DIR)/$(file)$(2))
+
+# Loads contents of file, ensuring each whitespace
+# separated entry will be unique.
+# Result entries are sorted.
+module-contents=$(if $(wildcard $(1)),$(strip $(shell sort $(1) | uniq)))
+
+# Assembles list from $(name)$(2)$(3) variable
+# and $(name)$(2)$(MODULE-SUFFIX) file, for each name from $(1)
+assemble-list=$(foreach name,$(1),$($(name)$(2)$(3)) $(call module-contents, $(name)$(2)$(MODULE-SUFFIX)))
+
+# Assembles list from $(name)$(2).stems variable
+# and $(name)$(2)$(MODULE-SUFFIX) file, for each name from $(1)
+assemble-stems=$(call assemble-list, $(1),$(2),)
+
+
+endif

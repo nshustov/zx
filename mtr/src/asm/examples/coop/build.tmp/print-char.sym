@@ -1,0 +1,5 @@
+__mtr_tasks_ctr                 = $0000 ; addr, local, , , data, print-char.asm:16
+__mtr_active_tasks_ctr          = $0002 ; addr, local, , , data, print-char.asm:19
+__mtr_current_task_ctx          = $0004 ; addr, local, , , data, print-char.asm:22
+__mtr_task_ctx_start            = $0006 ; addr, local, , , data, print-char.asm:25
+__mtr_task_ctx_end              = $0008 ; addr, local, , , data, print-char.asm:28

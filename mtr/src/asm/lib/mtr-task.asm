@@ -5,7 +5,7 @@
 #include "mtr-util-regs.inc"
 #include "mtr-task.inc"
 
-SECTION code
+SECTION mtr_code
 
 EXTERN __mtr_next_task
 

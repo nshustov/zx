@@ -1,11 +1,13 @@
 #include "mtr-util-regs.inc"
 #include "mtr-util-print.inc"
 
+SECTION mtr_code
+
 ; aux: prints low 4 bits of A as hex digit
 __mtr_print_hex_low:
   PUSH HL
   CALL __mtr_save_regs
-  ADD A,'0'
+  ADD '0'
   CP '9'
   JR NC,__mtr_print_hex_low_char
   ADD A,7

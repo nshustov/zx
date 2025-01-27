@@ -7,6 +7,9 @@ SHARED-INCLUDE-DIR := $(root)/include
 
 VERBOSE :=
 
+Z88DK-ASM:=z88dk.z88dk-z80asm
+Z88DK-APPMAKE:=z88dk.z88dk-appmake
+
 export ZCCCFG:=/snap/z88dk/current/share/z88dk/lib/config
 
 endif

@@ -18,5 +18,13 @@ assemble-list=$(foreach name,$(1),$($(name)$(2)$(3)) $(call module-contents, $(n
 # and $(name)$(2)$(MODULE-SUFFIX) file, for each name from $(1)
 assemble-stems=$(call assemble-list, $(1),$(2),)
 
+# true if $(1) == $(2)
+equals=$(if $(filter-out $(1),$(2))$(filter-out $(2),$(1)),,true)
+
+# true if $(1) != $(2)
+not-equals=$(if $(filter-out $(1),$(2))$(filter-out $(2),$(1)),true)
+
+# Name of file with path and suffix stripped
+filename=$(basename $(notdir $(1)))
 
 endif

@@ -9,6 +9,8 @@ print-char-t.tap.cleanaddr := 32768
 print-char-t.tap.usraddr := 32768
 print-char-t.tap.blockname := dumbo
 print-char-t.tap.opts := --fast
+#print-char-t.tap.noloader := false
+print-char-t.tap.loader := staged
 
 # print-char.appopts := -b "build.tmp/print-char_code.bin" -b "build.tmp/print-char_data.bin" --org 32768 --cleanaddr 32768 -usraddr 32768 --blockname dumbo --fast
 

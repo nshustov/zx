@@ -17,6 +17,8 @@ LIB-SUFFIX:=.lib
 BIN-SUFFIX:=.bin
 MODULE-SUFFIX:=.module
 
+FUSE-COMMAND = bash -c 'fuse --no-aspect-hint $(1) &!' || true
+
 $(OUTPUT-DIR):
 	mkdir -p "$@"
 
@@ -28,9 +30,10 @@ $(SHARED-INCLUDE-DIR):
 
 .DEFAULT_GOAL := build
 
-pre-build:
-build: pre-build | $(OUTPUT-DIR)
-install: build
+pre-build: | $(OUTPUT-DIR) $(SHARED-LIB-DIR) $(SHARED-INCLUDE-DIR)
+build: pre-build
+after-build: build
+install: after-build
 
 clean:
 	rm -rf $(OUTPUT-DIR)

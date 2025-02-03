@@ -1,0 +1,15 @@
+ifndef -FUSE-INCLUDE-
+-FUSE-INCLUDE- := 1
+
+include $(root)/build/common.include
+
+ifneq (,$(run-fuse))
+
+after-build: run-fuse-after-build
+
+run-fuse-after-build:
+	$(call FUSE-COMMAND,$(run-fuse))
+
+endif #ifneq (,(run-fuse))
+
+endif # ifndef -FUSE-INCLUDE-

@@ -2,23 +2,26 @@ root := ../../../..
 include $(root)/build/common.include
 
 asm-bins := print-char
-asm-taps := print-char-t
-print-char-t.tap.bins := print-char
-print-char-t.tap.org := 32768
-print-char-t.tap.cleanaddr := 32768
-print-char-t.tap.usraddr := 32768
-print-char-t.tap.blockname := dumbo
-print-char-t.tap.opts := --fast
-#print-char-t.tap.noloader := false
-print-char-t.tap.loader := staged
+asm-taps := print-char
 
-# print-char.appopts := -b "build.tmp/print-char_code.bin" -b "build.tmp/print-char_data.bin" --org 32768 --cleanaddr 32768 -usraddr 32768 --blockname dumbo --fast
-
+print-char.tap.org := 36864
+print-char.tap.cleanaddr := 36863
+print-char.tap.usraddr := 36864
+print-char.tap.blockname := print-char
+print-char.tap.opts := --fast
 
 asm-bin-libs := \
   mtr-util
 #  mtr \
 
+debug:=true
+debug.tape=$(OUTPUT-DIR)/print-char.tap
+debug.break=$(print-char.tap.usraddr)
+
+# run-fuse := -t $(OUTPUT-DIR)/print-char.tap --debugger-command "br $(print-char.tap.usraddr)"
+
 include $(root)/build/asm-bin.include
 include $(root)/build/asm-tap.include
+
+include $(root)/build/debug.include
 

@@ -1,0 +1,20 @@
+ifndef -DEBUG-INCLUDE-
+-DEBUG-INCLUDE- := 1
+
+include $(root)/build/common.include
+
+ifeq (true,$(debug))
+
+ifneq (,$(debug.tape))
+  run-fuse += -t $(debug.tape)
+endif
+
+ifneq (,$(debug.break))
+  run-fuse += --debugger-command "br $(debug.break)"
+endif
+
+include $(root)/build/fuse.include
+
+endif # ifeq (true,$(debug))
+
+endif # ifndef -DEBUG-INCLUDE-

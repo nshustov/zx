@@ -1,6 +1,6 @@
 #include "mtr-util-print.inc"
 
-ORG 0x8000
+ORG 0x9000
 
 SECTION code
 

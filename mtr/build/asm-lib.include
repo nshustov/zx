@@ -1,5 +1,7 @@
 include $(root)/build/common.include
 
+ifneq (,$(asm-libs))
+
 build-asm-libs = $(call output-file,$(asm-libs),$(LIB-SUFFIX))
 
 asm-stems += $(call assemble-stems,$(asm-libs),$(LIB-SUFFIX))
@@ -20,8 +22,11 @@ endif
 
 build: $(build-asm-libs)
 
+endif
+
 include $(root)/build/asm.include
 
+ifneq (,$(build-asm-libs))
 $(build-asm-libs) : $(build-asm-objects)
-
+endif
 

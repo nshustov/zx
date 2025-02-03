@@ -8,10 +8,9 @@ include $(root)/build/common.include
 #########################################
 
 build-asm-objects += $(call output-file,$(asm-stems),$(OBJ-SUFFIX))
-
-ifneq (,$(asm.module))
 build-asm-objects += $(call output-file,$(call module-contents,$(asm.module)),$(OBJ-SUFFIX))
-endif
+
+ifneq (,$(build-asm-objects))
 
 build: $(build-asm-objects)
 
@@ -21,6 +20,8 @@ $(OUTPUT-DIR)/%$(OBJ-SUFFIX) : %$(ASM-SUFFIX)
 #########################################
 # .shared includes publishing
 #########################################
+
+endif # (,$(build-asm-objects))
 
 ifneq ($(shared-includes),)
 
@@ -37,6 +38,6 @@ endif
 
 build: $(build-shared-includes)
 
-endif
+endif # ifneq ($(shared-includes),)
 
-endif
+endif # ifndef -ASM-INCLUDE-

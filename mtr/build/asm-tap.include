@@ -1,14 +1,12 @@
 include $(root)/build/common.include
 
+ifneq (,$(asm-taps))
+
 build-asm-taps = $(call output-file,$(asm-taps),$(TAP-SUFFIX))
 asm-taps-bins += $(call output-file,$(call assemble-list,$(asm-taps),$(TAP-SUFFIX),.bins),$(BIN-SUFFIX))
 
 $(build-asm-taps): $(asm-taps-bins)
 build: $(build-asm-taps)
-
-build-asm-taps-parts := $(foreach name,$(asm-taps),$(if $(call equals,$($(name).tap.loader),staged),$(call output-file,$(name),$(TAP-SUFFIX)-part)))
-
-$(build-asm-taps) : $(build-asm-taps-parts)
 
 define make-tap-opts
 $(if $($(1).tap.org), --org $($(1).tap.org)) \
@@ -16,35 +14,14 @@ $(if $($(1).tap.cleanaddr), --cleanaddr $($(1).tap.cleanaddr)) \
 $(if $($(1).tap.usraddr), --usraddr $($(1).tap.usraddr)) \
 $(if $($(1).tap.blockname), --blockname $($(1).tap.blockname)) \
 $(if $(call equals,$($(1).tap.loader),false),--noloader) \
-$(if $(call equals,$($(1).tap.loader),staged),--noloader) \
 
 endef
-
-# $(1) - loader file name
-# $(2) - TAP name
-define create-basic-loader
-$(file >$(1),10 CLEAR $($(2).tap.cleanaddr))
-$(file >>$(1),20 LOAD "$($(2).tap.blockname)" CODE $($(2).tap.usraddr))
-$(file >>$(1),30 RANDOMIZE USR $($(2).tap.usraddr))
-endef
-
-define make-staged-tap
-$(call create-basic-loader,$(1),$(2))
-zmakebas $(1) -a 10 -n "$(2)" -o $(call output-file,$(2),$(TAP-SUFFIX)-loader)
-endef
-
-define make-standard-tap
-$(Z88DK-APPMAKE) +zx \
-$(addprefix -b ,$(call output-file,$(call assemble-list,$(call filename,$@),$(TAP-SUFFIX),.bins),$(BIN-SUFFIX))) \
-$($(call filename,$@).tap.opts) \
-$(call make-tap-opts,$(call filename,$@)) \
--o "$@"
-endef
-
-$(OUTPUT-DIR)/%$(TAP-SUFFIX)-part:
-	$(make-standard-tap)
 
 $(OUTPUT-DIR)/%$(TAP-SUFFIX):
-	$(if $(call equals,$($(call filename,$@).tap.loader),staged), \
-		$(call make-staged-tap,$(call output-file,loader.bas),$(call filename,$@)), \
-		$(make-standard-tap))
+	$(Z88DK-APPMAKE) +zx \
+		$(addprefix -b ,$(call output-file,$(call assemble-list,$(call filename,$@),$(TAP-SUFFIX),.bins),$(BIN-SUFFIX))) \
+		$($(call filename,$@).tap.opts) \
+		$(call make-tap-opts,$(call filename,$@)) \
+		-o "$@"
+
+endif
